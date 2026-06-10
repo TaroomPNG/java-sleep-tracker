@@ -53,10 +53,11 @@ public class FunctionLogger extends Logger {
     }
   }
 
-  public static void logging(String message, Exception exception, boolean OutputSerr) {
+  public static void logging(String message, Exception exception, boolean outputSerr) {
     initLogs();
-    System.err.println(exception.getMessage());
-
+    if (outputSerr) {
+      System.err.println(exception.getMessage());
+    }
     try (BufferedWriter bufferedWriter =
         new BufferedWriter(new FileWriter(PATH.toFile(), StandardCharsets.UTF_8, true))) {
 

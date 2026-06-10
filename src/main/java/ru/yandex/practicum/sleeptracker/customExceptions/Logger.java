@@ -53,20 +53,22 @@ public class Logger {
     }
   }
 
-  public static void logging(String message, Exception exception, boolean OutputSerr) {
+  public static void logging(String message, Exception exception, boolean outputSerr) {
     initLogs();
-    System.err.println(exception.getMessage());
 
+    if (outputSerr) {
+      System.err.println(exception.getMessage());
+    }
     try (BufferedWriter bufferedWriter =
-                 new BufferedWriter(new FileWriter(PATH.toFile(), StandardCharsets.UTF_8, true))) {
+        new BufferedWriter(new FileWriter(PATH.toFile(), StandardCharsets.UTF_8, true))) {
 
       bufferedWriter.write(
-              LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
-                      + " - "
-                      + message
-                      + "\n -> "
-                      + exception.getMessage()
-                      + System.lineSeparator());
+          LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+              + " - "
+              + message
+              + "\n -> "
+              + exception.getMessage()
+              + System.lineSeparator());
 
     } catch (IOException e) {
       System.err.println("Ошибка инициализации файла логов " + e.getMessage());

@@ -1,7 +1,5 @@
 package ru.yandex.practicum.sleeptracker.functions.core;
 
-import java.lang.Object;
-
 public class SleepAnalysResult {
     private final String description;
     private final Object value;
