@@ -4,5 +4,4 @@ public enum SleepTypes {
     LARK,
     OWL,
     PIGEON
-
 }
