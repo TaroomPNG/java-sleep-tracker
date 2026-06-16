@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import ru.yandex.practicum.sleeptracker.functions.SleepTypeFunction;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepAnalysResult;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepFunction;
-import ru.yandex.practicum.sleeptracker.functions.core.SleepType;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepTypes;
 import ru.yandex.practicum.sleeptracker.service.QualityOfSleep;
 
@@ -25,7 +24,7 @@ public class SleepTypeFunctionTest {
 
     SleepFunction function = new SleepTypeFunction();
     SleepAnalysResult result = function.apply(sessions);
-    SleepType expectedType = new SleepType(SleepTypes.OWL);
+    SleepTypes expectedType = SleepTypes.OWL;
 
     assertEquals(expectedType, result.getValue());
   }
@@ -43,7 +42,7 @@ public class SleepTypeFunctionTest {
     SleepFunction function = new SleepTypeFunction();
     SleepAnalysResult result = function.apply(sessions);
 
-    SleepType expectedType = new SleepType(SleepTypes.LARK);
+    SleepTypes expectedType = SleepTypes.LARK;
 
     assertEquals(expectedType, result.getValue());
   }

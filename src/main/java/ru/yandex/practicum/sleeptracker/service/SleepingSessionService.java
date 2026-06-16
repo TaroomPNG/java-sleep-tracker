@@ -17,8 +17,8 @@ public class SleepingSessionService {
                     return new SleepingSession(
                             parts[0],
                             parts[1],
-                            QualityOfSleep.getQuality(parts[2]));
-                })
+                            QualityOfSleep.valueOf(parts[2]))
+                ;})
                 .collect(Collectors.toList());
     }
 }

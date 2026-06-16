@@ -3,7 +3,6 @@ package ru.yandex.practicum.sleeptracker.functions;
 import ru.yandex.practicum.sleeptracker.SleepingSession;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepAnalysResult;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepFunction;
-import ru.yandex.practicum.sleeptracker.functions.core.SleepType;
 import ru.yandex.practicum.sleeptracker.functions.core.SleepTypes;
 import static ru.yandex.practicum.sleeptracker.customExceptions.FunctionLogger.logging;
 
@@ -29,7 +28,7 @@ public class SleepTypeFunction extends SleepFunction {
 
     logging(
         "Фильтрация прошла было элементов " + sessions.size() + " стало -> " + filtredList.size());
-    List<SleepType> sleepTypes =
+    List<SleepTypes> sleepTypes =
         filtredList.stream()
             .map(
                 session -> {
@@ -42,32 +41,32 @@ public class SleepTypeFunction extends SleepFunction {
                   logging("Взят элемент # " + session.getAsleep() + " -> " + session.getWokeUp());
                   if (isLark) {
                     logging("Указан как жаворонок");
-                    return new SleepType(SleepTypes.LARK);
+                    return SleepTypes.LARK;
                   }
 
                   if (isOwl) {
                     logging("Указан как сова");
-                    return new SleepType(SleepTypes.OWL);
+                    return SleepTypes.OWL;
                   }
 
                   logging("Указан как голубь");
-                  return new SleepType(SleepTypes.PIGEON);
+                  return SleepTypes.PIGEON;
                 })
             .toList();
 
     logging("Маппинг прошел - считаем");
 
-    Map<SleepType, Long> counter = sleepTypes.stream().collect(Collectors.groupingBy(
-            sleepType -> sleepType,Collectors.counting()
-    ));
+    Map<SleepTypes, Long> counter =
+        sleepTypes.stream()
+            .collect(Collectors.groupingBy(sleepType -> sleepType, Collectors.counting()));
 
-    counter.forEach((s,l) -> logging(s + " -> " + l));
+    counter.forEach((s, l) -> logging(s + " -> " + l));
 
-    SleepType type =
+    SleepTypes type =
         counter.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(new SleepType(SleepTypes.PIGEON));
+            .max(Map.Entry.comparingByValue())
+            .map(Map.Entry::getKey)
+            .orElse(SleepTypes.PIGEON);
     logging("Выбран " + type);
 
     return new SleepAnalysResult("Учитывая ваш циркадный ритм вы", type);
